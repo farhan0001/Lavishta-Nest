@@ -4,15 +4,27 @@ const User = require("../models/userModel");
 const { sendToken } = require("../utils/jwtToken");
 const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
+const cloudinary = require("cloudinary");
 
 //Register a User
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+
+    if(req.body.avatar === ""){
+        return next(new ErrorHandler("Please Upload Your Photo", 404));
+    }
+
+    const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+        crop: "scale"
+    })
+
     const { name, email, password } = req.body;
     const user = await User.create({
         name, email, password,
         avatar: {
-            public_id: "this is a sample id",
-            url: "PicUrl"
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url
         }
     });
 
@@ -67,7 +79,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     await user.save({validateBeforeSave: false});
 
     //Sending mail
-    const resetPasswordURL = `${req.protocol}://${req.get("host")}/api/v1/password/reset/${resetToken}`;
+    const resetPasswordURL = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
     const message = `Your Password Reset Link is:- \n\n${resetPasswordURL} \n\n If you have not requested this, then please contact the admin.`;
 
     try {
@@ -100,10 +112,10 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
     if(!user)
         return next(new ErrorHandler("Reset Password Token is invalid or has been expired", 400));
 
-    if(req.body.password !== req.body.confirmPassword)
+    if(req.body.newPassword !== req.body.confirmPassword)
         return next(new ErrorHandler("Password does not match", 400));
 
-    user.password = req.body.password;
+    user.password = req.body.newPassword;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;
     await user.save({validateBeforeSave: false});
@@ -145,7 +157,23 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
         email: req.body.email
     }
 
-    //We will add cloudinary later
+    if(req.body.avatar !== ""){
+        const user = await User.findById(req.user._id);
+        const imageId = user.avatar.public_id;
+
+        await cloudinary.v2.uploader.destroy(imageId);
+
+        const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: "avatars",
+            width: 150,
+            crop: "scale"
+        });
+        
+        newUserData.avatar = {
+            public_id: myCloud.public_id,
+            url: myCloud.secure_url
+        }
+    }
 
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
@@ -207,10 +235,13 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
 exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
 
     const user = await User.findById(req.params.id);
-    //We will remove cloudinary later
 
     if(!user)
         return next(new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400));
+
+    const imageId = user.avatar.public_id;
+
+    await cloudinary.v2.uploader.destroy(imageId);
 
     await user.deleteOne();
 

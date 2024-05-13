@@ -1,5 +1,10 @@
 .banner {
-    background-image: linear-gradient(to right, #203b30, #1d3047);
+    background-image: url('../../images/cover_page.webp');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: overlay;
     height: 100vmin;
     text-align: center;
     display: flex;
@@ -83,24 +88,31 @@
     flex-direction: column;
     text-decoration: none;
     color: #1c2229;
+    background-color: #f5f7f8;
     margin: 2vmax;
     transition: all 0.3s;
     padding-bottom: 0.5vmax;
 }
 
 .productCard > img {
+    padding-top: 1vmax;
+    padding-bottom: 2vmax;
     width: 16vmax;
+    height: 50%;
+    max-height: 50%;
 }
 
 .productCard > div {
     margin: 0.5vmax;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
 }
 
-.productCard > div > span {
-    margin: 0.8vmax 0.5vmax;
-    font: 300 0.7vmax "Roboto";
+.productCard-span {
+    margin: 0.5vmax;
+    font: 300 0.8vmax "cursive";
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .productCard > p {

@@ -1,0 +1,73 @@
+.updateOrderForm {
+    margin: 5vmax 0;
+    padding: 3vmax;
+    background-color: white;
+}
+
+.updateOrderForm > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.updateOrderForm > div > select{
+    padding: 1vmax 4vmax;
+    width: 100%;
+    margin: 2rem 0;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    font: 300 0.9vmax cursive;
+    outline: none;
+}
+
+.updateOrderForm > div > svg {
+    position: absolute;
+    transform: translate(1vmax);
+    font-size: 1.6vmax;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+#updateOrderBtn {
+    border: none;
+    background-color: tomato;
+    color: white;
+    font: 300 0.9vmax "Roboto";
+    width: 100%;
+    padding: 0.8vmax;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.updateOrderBtn:hover {
+    background-color: rgb(179, 66, 46);
+}
+
+#updateOrderImage > img {
+    width: 3vmax;
+    border-radius: 100%;
+}
+
+@media screen and (max-width: 600px) {
+
+    .updateOrderForm {
+        padding: 5vmax;
+    }
+
+    .updateOrderForm > div > select {
+        padding: 2.5vmax 5vmax;
+        font: 300 1.7vmax cursive;
+    }
+
+    .updateOrderForm > div > svg {
+        font-size: 2.8vmax;
+    }
+
+    #updateOrderBtn {
+        font: 300 1.9vmax "Roboto";
+        padding: 1.8vmax;
+    }
+}

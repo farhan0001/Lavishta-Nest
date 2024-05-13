@@ -14,6 +14,8 @@ import MetaData from '../layout/MetaData.js';
 const categories = [
     "Laptop",
     "Footwear",
+    "Bottom",
+    "Tops",
     "Attire",
     "Camera",
     "SmartPhones"
@@ -75,7 +77,7 @@ const Products = () => {
                             {categories.map((cat) => (
                                 <li
                                     className='category-link'
-                                    key={category}
+                                    key={cat}
                                     onClick={() => setCategory(cat)}
                                 >
                                     {cat}
