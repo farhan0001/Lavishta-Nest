@@ -57,7 +57,7 @@ export const getAdminProduct = () => async(dispatch) => {
             type: ADMIN_PRODUCT_REQUEST
         });
 
-        const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/api/v1/admin/products`);
+        const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/api/v1/admin/products`, {withCredentials: true});
 
         dispatch({
             type: ADMIN_PRODUCT_SUCCESS,
@@ -82,7 +82,8 @@ export const createProduct = (productData) => async(dispatch) => {
         const config = {
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            withCredentials: true
         }
 
         const {data} = await axios.post(`${process.env.REACT_APP_BACKEND_URI}/api/v1/admin/product/new`, productData, config);
@@ -107,7 +108,7 @@ export const deleteProduct = (id) => async(dispatch) => {
             type: DELETE_PRODUCT_REQUEST
         })
 
-        const {data} = await axios.delete(`${process.env.REACT_APP_BACKEND_URI}/api/v1/admin/product/${id}`);
+        const {data} = await axios.delete(`${process.env.REACT_APP_BACKEND_URI}/api/v1/admin/product/${id}`, {withCredentials: true});
 
         dispatch({
             type: DELETE_PRODUCT_SUCCESS,
@@ -132,7 +133,8 @@ export const updateProduct = (id, productData) => async(dispatch) => {
         const config = {
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            withCredentials: true
         }
 
         const {data} = await axios.put(`${process.env.REACT_APP_BACKEND_URI}/api/v1/admin/product/${id}`, productData, config);
@@ -180,7 +182,8 @@ export const newReview = (reviewData) => async(dispatch) => {
         const config = {
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            withCredentials: true
         }
 
         const {data} = await axios.put(`${process.env.REACT_APP_BACKEND_URI}/api/v1/review`, reviewData, config);
@@ -205,7 +208,7 @@ export const getAllReviews = (id) => async(dispatch) => {
             type: ALL_REVIEW_REQUEST
         });
 
-        const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/api/v1/reviews?id=${id}`);
+        const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/api/v1/reviews?id=${id}`, {withCredentials: true});
 
         dispatch({
             type: ALL_REVIEW_SUCCESS,
@@ -227,7 +230,7 @@ export const deleteReview = (reviewId, productId) => async(dispatch) => {
             type: DELETE_REVIEW_REQUEST
         });
 
-        const {data} = await axios.delete(`${process.env.REACT_APP_BACKEND_URI}/api/v1/reviews?id=${reviewId}&productId=${productId}`);
+        const {data} = await axios.delete(`${process.env.REACT_APP_BACKEND_URI}/api/v1/reviews?id=${reviewId}&productId=${productId}`, {withCredentials: true});
 
         dispatch({
             type: DELETE_REVIEW_SUCCESS,

@@ -7,6 +7,7 @@ const errorMiddleware = require("./middleware/error");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
+const cors = require('cors');
 // const path = require('path');
 
 if(process.env.NODE_ENV !== 'PRODUCTION'){
@@ -22,7 +23,14 @@ app.use((req, res, next) => {
         "Origin, X-Requested-With, Content-Type, Accept"
     )
     next()
-})
+});
+
+app.use(
+    cors({
+        credentials: true,
+        origin: process.env.FRONTEND_URL
+    })
+);
 
 app.use(express.json());
 

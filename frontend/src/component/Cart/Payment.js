@@ -60,11 +60,12 @@ const Payment = () => {
             const config = {
                 headers: {
                     "Content-Type": "application/json"
-                }
+                },
+                withCredentials: true
             };
 
             const { data } = await axios.post(
-                "/api/v1/payment/process",
+                `${process.env.REACT_APP_BACKEND_URI}/api/v1/payment/process`,
                 paymentData,
                 config
             );

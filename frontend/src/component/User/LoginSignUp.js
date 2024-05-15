@@ -12,6 +12,7 @@ import MetaData from '../layout/MetaData';
 
 const LoginSignUp = () => {
 
+    const [initialized, setInitialized] = useState(true);
     const dispatch = useDispatch();
     const {error, loading, isAuthenticated} = useSelector(state => state.user);
     const alert = useAlert();
@@ -70,7 +71,11 @@ const LoginSignUp = () => {
     const redirect = location.search ? location.search.split('=')[1] : 'account';
 
     useEffect(() => {
-        if(error){
+        if(initialized){
+            dispatch(clearErrors());
+            setInitialized(false);
+        }
+        else if(error){
             alert.error(error);
             dispatch(clearErrors());
         }
@@ -78,7 +83,7 @@ const LoginSignUp = () => {
         if(isAuthenticated){
             navigate('/' + redirect);
         }
-    }, [dispatch, error, alert, isAuthenticated, navigate, redirect]);
+    }, [initialized, dispatch, error, alert, isAuthenticated, navigate, redirect]);
 
     const [currTab, setCurrTab] = useState("Login | Lavishta");
 

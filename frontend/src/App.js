@@ -1,8 +1,8 @@
 import './App.css';
 import Header from "./component/layout/Header/Header";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import WebFont from "webfontloader";
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Footer from './component/layout/Footer/Footer';
 import Home from "./component/Home/Home";
 import ProductDetails from "./component/Product/ProductDetails";
@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import Profile from "./component/User/Profile";
 import ProtectedRoute from './component/Route/ProtectedRoute';
 import UpdateProfile from './component/User/UpdateProfile';
-import UpdatePassword  from './component/User/UpdatePassword';
+import UpdatePassword from './component/User/UpdatePassword';
 import ForgotPassword from './component/User/ForgotPassword';
 import ResetPassword from './component/User/ResetPassword';
 import Cart from './component/Cart/Cart';
@@ -44,16 +44,16 @@ import NotFound from './component/layout/Not Found/NotFound';
 
 function App() {
 
-  const {isAuthenticated, user} = useSelector(state => state.user);
+  const { isAuthenticated, user } = useSelector(state => state.user);
 
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
-    try{
-      const {data} = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/api/v1/stripeapikey`);
+    try {
+      const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URI}/api/v1/stripeapikey`, { withCredentials: true });
       setStripeApiKey(data.stripeApiKey);
     }
-    catch(error){
+    catch (error) {
       console.log(error.response.data.message);
     }
   }
@@ -73,7 +73,7 @@ function App() {
   window.addEventListener("contextmenu", (e) => e.preventDefault());
 
   return (
-    <Router>
+    <Fragment>
       <Header />
       {isAuthenticated && <UserOptions user={user} />}
       <Routes>
@@ -82,9 +82,9 @@ function App() {
         <Route exact path="/products" element={<Products />} />
         <Route exact path="/products/:keyword" element={<Products />} />
         <Route exact path="/search" element={<Search />} />
-        <Route exact path="/login" element={<LoginSignUp />}/>
-        <Route exact path="/about" element={<About />}/>
-        <Route exact path="/contact" element={<Contact />}/>
+        <Route exact path="/login" element={<LoginSignUp />} />
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="/contact" element={<Contact />} />
         <Route exact path='/account' element={<ProtectedRoute element={<Profile />} />} />
         <Route exact path='/me/update' element={<ProtectedRoute element={<UpdateProfile />} />} />
         <Route exact path='/password/update' element={<ProtectedRoute element={<UpdatePassword />} />} />
@@ -113,7 +113,7 @@ function App() {
         <Route exact path='*' element={window.location.pathname === "/process/payment" ? null : <NotFound />} />
       </Routes>
       <Footer />
-    </Router>
+    </Fragment>
   );
 }
 
