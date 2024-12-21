@@ -3,6 +3,8 @@
 ## Overview
 This project is a full-featured **E-commerce Website** developed using the **MERN stack** (MongoDB, Express.js, React, Node.js). It includes a secure authentication system using **JWT (JSON Web Tokens)** and role-based authorization for admin and user access. The application uses **Redux** for state management, providing a centralized store to handle user sessions, products, and cart functionality efficiently.
 
+> Try the app - [Go to website](https://lavishta.netlify.app/)
+
 ## Features
 - **Authentication**: Secure user registration and login using JWT.
 - **Role-Based Authorization**: Admin users have privileged access to manage products, orders, and users, while regular users can browse and purchase products.
