@@ -19,7 +19,6 @@ This project is a full-featured **E-commerce Website** developed using the **MER
 - **React**: For building a dynamic and responsive user interface.
 - **Redux**: For managing application state in a centralized store.
 - **Axios**: For API communication.
-- **Bootstrap**: For responsive design and styling.
 
 ### Backend
 - **Node.js**: For server-side scripting.
