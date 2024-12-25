@@ -1,4 +1,4 @@
-# Lavishta - E-commerce Website - MERN Stack
+# Lavishta Nest - E-commerce Website - MERN Stack
 
 ## Overview
 This project is a full-featured **E-commerce Website** developed using the **MERN stack** (MongoDB, Express.js, React, Node.js). It includes a secure authentication system using **JWT (JSON Web Tokens)** and role-based authorization for admin and user access. The application uses **Redux** for state management, providing a centralized store to handle user sessions, products, and cart functionality efficiently.
@@ -46,7 +46,7 @@ The application follows a **3-tier architecture**:
 #### Backend
 1. Clone the repository and navigate to the backend folder:
    ```bash
-   git clone https://github.com/farhan0001/Lavishta.git
+   git clone https://github.com/farhan0001/Lavishta-Nest.git
    cd Lavishta
    ```
 2. Install dependencies:
